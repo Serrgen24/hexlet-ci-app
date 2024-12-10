@@ -1,25 +1,14 @@
 name: CI
 
-on: 
-	push:
-		branches:
-			- main
-		pull_request:
-			branches:
-				- main
+on: push
 
 jobs: 
-	build:
 		runs-on: ubuntu-latest
+
 		steps: 
-			- name: Checkout code
-				uses: actions/checkout@v2
 
-			- name: Setup project	
-				run: make setup
+			- run: make setup
 
-			- name: Run tests
-				run: make test
+			- run: make test
 
-			- name: Run linter
-				run: make lint
+			- run: make lint
