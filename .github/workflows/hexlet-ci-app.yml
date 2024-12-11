@@ -1,11 +1,31 @@
 name: CI
-on: push
 
-jobs: 
-	foo:
-		runs-on: ubuntu-latest
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
-		steps: 
-			- run: make setup
-			- run: make test
-			- run: make lint
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: make setup
+
+      - name: Run tests
+        run: make test
+
+      - name: Run linter
+        run: make lint
